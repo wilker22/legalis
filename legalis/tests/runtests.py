@@ -7,6 +7,17 @@ import multiprocessing
 from django.conf import settings
 
 
+EXTERNAL_MIDDLEWARE = [
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+]
+
+INTERNAL_MIDDLEWARE = []
+
 EXTERNAL_APPS = [
     'django.contrib.admin',
     'django.contrib.admindocs',
@@ -17,6 +28,7 @@ EXTERNAL_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
     'django.contrib.sites',
+    'django.contrib.flatpages',
 ]
 INTERNAL_APPS = [
     'django_nose',
@@ -31,11 +43,13 @@ if not settings.configured:
                 'NAME': ':memory:',
             }
         },
+        MIDDLEWARE_CLASSES = EXTERNAL_MIDDLEWARE + INTERNAL_MIDDLEWARE,
         INSTALLED_APPS = EXTERNAL_APPS + INTERNAL_APPS,
-        ROOT_URLCONF='posts.tests.urls',
+        ROOT_URLCONF='legalis.tests.urls',
         TEMPLATE_DIRS = (
             os.path.join(os.path.dirname(__file__), '../templates'),
         ),
+        SITE_ID = 1,
         COVERAGE_MODULE_EXCLUDES = EXTERNAL_APPS,
         COVERAGE_REPORT_HTML_OUTPUT_DIR=os.path.join(os.path.dirname(__file__), 'coverage')
     )
