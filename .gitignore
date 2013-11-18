@@ -9,3 +9,10 @@ man
 share
 local
 example
+/env/
+/build/
+/dist/
+coverage/
+.coverage
+*.egg-info
+*.egg

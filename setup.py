@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os
 from setuptools import setup, find_packages
 
@@ -9,7 +11,7 @@ def read(fname):
 
 setup(
     name='legalis',
-    version=posts.__version__,
+    version=legalis.__version__,
     description='Gerenciador de Conteúdo (CMS) especializado para escritórios de advocacia.',
     long_description=read('README.rst'),
     license='MIT License',

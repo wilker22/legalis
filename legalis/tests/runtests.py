@@ -20,7 +20,7 @@ EXTERNAL_APPS = [
 ]
 INTERNAL_APPS = [
     'django_nose',
-    'posts',
+    'legalis',
 ]
 
 if not settings.configured:
