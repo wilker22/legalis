@@ -1,0 +1,11 @@
+Django==1.5.1
+South==0.8.2
+dj-database-url==0.2.2
+gunicorn==18.0
+psycopg2==2.5.1
+django-nose==1.2
+rednose==0.4.0
+model-mommy==1.0
+Unipath==1.0
+honcho==0.4.2
+django-widget-tweaks==1.3

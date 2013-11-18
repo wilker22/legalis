@@ -2,3 +2,10 @@
 *.pot
 *.pyc
 local_settings.py
+bin
+include
+lib
+man
+share
+local
+example
