@@ -6,13 +6,9 @@ from django.contrib.sites.models import Site
 from model_mommy import mommy
 
 
-class LegalisAboutPageTest(TestCase):
+class LegalisPageTest(TestCase):
     """
-    Verify the pages:
-
-        - About;
-        - Office;
-        - Performance;
+    Verify the flatpages
     """
 
     def setUp(self):
