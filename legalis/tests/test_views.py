@@ -48,4 +48,8 @@ class OperationViewTest(TestCase):
         """GET /atuacoes/ deve retornar status 200"""
         self.assertEqual(200, self.resp.status_code)
 
+    def test_template(self):
+        """Deve renderizar o template operation_list.html"""
+        self.assertTemplateUsed(self.resp, 'operations/operations_list.html')
+
 
