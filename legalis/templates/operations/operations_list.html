@@ -1,5 +1,4 @@
-{% extends "base.html" %}
-
-{% block main %}
-
-{% endblock main %}
+{% for operation in object_list %}
+    <h3>{{ operation.name }}</h3>
+    <p>{{ operation.description }}</p>
+{% endfor %}

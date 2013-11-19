@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import render
+from django.views.generic.list import ListView
+
+from legalis.models import Operation
 
 
-def operations_list(request):
-    return render(request, "operations/operations_list.html")
+class OperationListView(ListView):
+    template_name = "operations/operations_list.html"
+    model = Operation
