@@ -4,9 +4,6 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.sites.models import Site
-from model_mommy import mommy
-
-from legalis.models import Operation
 
 
 class LegalisPageTest(TestCase):
@@ -35,28 +32,3 @@ class LegalisPageTest(TestCase):
     def test_get(self):
         """GET /about/ deve retornar status 200"""
         self.assertEqual(200, self.resp.status_code)
-
-
-class OperationViewTest(TestCase):
-
-    """
-    Testa a lista de atuações do escritório
-    """
-
-    def setUp(self):
-        self.operation = mommy.make('legalis.Operation', name="Test")
-        self.resp = self.client.get('/atuacoes/')
-
-    def test_get(self):
-        """GET /atuacoes/ deve retornar status 200"""
-        self.assertEqual(200, self.resp.status_code)
-
-    def test_template(self):
-        """Deve renderizar o template operation_list.html"""
-        self.assertTemplateUsed(self.resp, 'operations/operations_list.html')
-
-    def test_html(self):
-        """HTML deve conter a lista de atuacoes"""
-        self.assertContains(self.resp, '<h3>Test')
-        self.assertContains(self.resp, '<p')
-
