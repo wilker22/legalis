@@ -52,4 +52,3 @@ class OperationViewTest(TestCase):
         """Deve renderizar o template operation_list.html"""
         self.assertTemplateUsed(self.resp, 'operations/operations_list.html')
 
-

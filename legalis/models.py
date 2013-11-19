@@ -1,3 +1,9 @@
-from django.db import models
+# -*- coding: utf-8 -*-
 
-# Create your models here.
+from django.db import models
+from django.utils.translation import ugettext_lazy as _
+
+
+class Operation(models.Model):
+    name = models.CharField(_(u"Atuação"), max_length=90)
+    description = models.TextField(_(u"Descrição"))
