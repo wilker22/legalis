@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 
 from django.test import TestCase
+from django.core.urlresolvers import reverse
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.sites.models import Site
 from model_mommy import mommy
 
 
 class LegalisPageTest(TestCase):
+
     """
-    Verify the flatpages
+    Testa o uso das flatpages
     """
 
     def setUp(self):
@@ -25,8 +27,25 @@ class LegalisPageTest(TestCase):
         self.page.save()
 
         # Request page
-        self.resp = self.client.get(self.page.url)
+        self.resp = self.client.get(reverse('flatpages',
+                                    kwargs={'url': self.page.url}))
 
     def test_get(self):
-        """GET /about/ should return 200 status code"""
+        """GET /about/ deve retornar status 200"""
         self.assertEqual(200, self.resp.status_code)
+
+
+class OperationViewTest(TestCase):
+
+    """
+    Testa a lista de atuações do escritório
+    """
+
+    def setUp(self):
+        self.resp = self.client.get('/atuacoes/')
+
+    def test_get(self):
+        """GET /atuacoes/ deve retornar status 200"""
+        self.assertEqual(200, self.resp.status_code)
+
+
