@@ -1,7 +1,7 @@
 [
     {
         "pk": 1,
-        "model": "flatpages.flatpage",
+        "model": "flatpages.Flatpage",
         "fields": {
             "registration_required": false,
             "title": "Escritório",
@@ -15,7 +15,7 @@
     },
     {
         "pk": 2,
-        "model": "flatpages.flatpage",
+        "model": "flatpages.Flatpage",
         "fields": {
             "registration_required": false,
             "title": "Equipe",

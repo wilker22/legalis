@@ -4,7 +4,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 
-class Operation(models.Model):
+class Procedure(models.Model):
     """
     Esse modelo define as atuações do escritório
     em questão. Os campos são:
@@ -19,7 +19,7 @@ class Operation(models.Model):
     description = models.TextField(_(u"Descrição"))
 
     class Meta:
-        db_table = "operations"
+        db_table = "procedure"
 
     def __unicode__(self):
         return self.name
