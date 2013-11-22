@@ -17,7 +17,8 @@ LEGALIS_APPS = [
     'django.contrib.redirects',
 
     'legalis.core',
-    'legalis.procedure',
+    'legalis.flatpages',
+    'legalis.skill',
 ]
 
 __version__ = ".".join(map(str, VERSION))
