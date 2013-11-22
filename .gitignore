@@ -16,3 +16,4 @@ coverage/
 .coverage
 *.egg-info
 *.egg
+.ropeproject/

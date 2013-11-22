@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+import datetime
+
 from django.db import models
 
-# Create your models here.
+
+class Content(models.Model):
+    created_at = models.DateField(default=datetime.datetime.now())
+    updated_at = models.DateField(default=datetime.datetime.now())
