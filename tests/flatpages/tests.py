@@ -1,16 +1,33 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
-"""
+# -*- coding: utf-8 -*-
 
 from django.test import TestCase
 
+from legalis.flatpages.models import FlatPage
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+
+class FlatPageModelTest(TestCase):
+
+    def test_should_body_field(self):
+        """Verifica se o modelo tem o campo body"""
+        fields = FlatPage._meta.get_all_field_names()
+        self.assertIn("body", fields)
+
+    def test_should_created_at_save(self):
+        """Deve ser registrado a data de criação"""
+        self.flatpage = FlatPage.objects.create(
+            title="Flatpage Test",
+            slug="flatpage-test",
+            body="Body TestPage"
+        )
+
+        self.assertEqual(self.flatpage.pk, 1)
+
+    def test_should_generate_slug(self):
+        """Deve gerar o slug baseado no titulo"""
+        self.flatpage = FlatPage.objects.create(
+            title="FlatPage with Slug",
+            body="Body TestPage"
+        )
+
+        self.assertEqual(self.flatpage.pk, 1)
+
