@@ -21,13 +21,3 @@ class FlatPageModelTest(TestCase):
         )
 
         self.assertEqual(self.flatpage.pk, 1)
-
-    def test_should_generate_slug(self):
-        """Deve gerar o slug baseado no titulo"""
-        self.flatpage = FlatPage.objects.create(
-            title="FlatPage with Slug",
-            body="Body TestPage"
-        )
-
-        self.assertEqual(self.flatpage.pk, 1)
-

@@ -2,8 +2,7 @@
 
 from django.test import TestCase
 
-from legalis.core.models import Content
-
+from legalis.core.models import Content, PageBase
 
 class ContentModelTestCase(TestCase):
 
@@ -15,5 +14,28 @@ class ContentModelTestCase(TestCase):
         self.assertIn("created_at", self.fields)
 
     def test_should_updates_at_field(self):
-        """Verifica se o modelo tem o updated_at"""
+        self.fields
         self.assertIn("updated_at", self.fields)
+
+
+class PageBaseModelTest(TestCase):
+
+    def setUp(self):
+        self.fields = PageBase._meta.get_all_field_names()
+
+    def test_should_slug(self):
+        """Verifica se o modelo tem o slug"""
+        self.assertIn("slug", self.fields)
+
+    def test_should_generate_slug(self):
+        """Deve gerar o slug baseado no titulo"""
+
+        # Criando classe baseado no PageBase
+        class PageTest(PageBase):
+            pass
+
+        self.flatpage = PageTest.objects.create(
+            title="FlatPage with Slug"
+        )
+
+        self.assertEqual(self.flatpage.slug, "flatpage-with-slug")

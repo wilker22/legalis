@@ -57,5 +57,24 @@ class PageBase(Content):
     status = models.CharField(_(u'Status'), max_length=1,
                               choices=STATUS_CHOICES)
 
+
+    def save(self, commit=True):
+        page = super(PageBase, self).save(commit=False)
+
+        # Se o slug não foi preenchido, então cria um novo
+        if page.slug:
+            page._generate_slug()
+
+        if commit:
+            page.save()
+        return page
+
+    def _generate_slug(self):
+        """
+        Gera o slug se o mesmo
+        não foi preenchido.
+        """
+        self.slug = slugify(self.title)
+
     class Meta:
         abstract = True
