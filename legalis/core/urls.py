@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 
-from .views import HomepageView
+from legalis.core.views import HomepageView
 
 urlpatterns = patterns('',
     url(r'^$', HomepageView.as_view(), name='home'),
