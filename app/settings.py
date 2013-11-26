@@ -6,7 +6,7 @@ import dj_database_url
 
 from unipath import Path
 
-PROJECT_PATH = Path(__file__).parent
+PROJECT_DIR = Path(__file__).parent
 
 DEBUG = os.environ.get('DEBUG', False)
 TEMPLATE_DEBUG = DEBUG
@@ -15,24 +15,27 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
-MANAGERS = ADMINS
-
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', '')
 if 'True' == os.environ.get('SEND_MAIL', 'False'):
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST = os.environ.get('EMAIL_HOST', 'localhost')
+    EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
     EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
-    EMAIL_PORT = os.environ.get('EMAIL_PORT', 0)
-    EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', False)
+    EMAIL_PORT = os.environ.get('EMAIL_PORT', 587)
+    EMAIL_USE_TLS = True
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-DATABASES = {'default': dj_database_url.config(default='sqlite:///' + PROJECT_PATH.child('database.db'))}
+MANAGERS = ADMINS
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default="sqlite:///" + PROJECT_DIR.child('databases.db'))
+}
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['localhost', 'legalis.herokuapp.com', 'example.com']
+ALLOWED_HOSTS = []
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -70,7 +73,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = PROJECT_PATH.child('public')
+STATIC_ROOT = PROJECT_DIR.child('public')
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -81,7 +84,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    PROJECT_PATH.child('static'),
+    PROJECT_DIR.child('static'),
 )
 
 # List of finder classes that know how to find static files in
@@ -93,21 +96,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'xev@hx#9)h)z9q4(%te(b(jy1neo@7ct_lkb71ajjufnx46=^q'
-
-# List of processors used by RequestContext to populate the context.
-# Each one should be a callable that takes the request object as its
-# only parameter and returns a dictionary to add to the context.
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.debug',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'django.core.context_processors.tz',
-    'django.core.context_processors.request',
-    'django.contrib.messages.context_processors.messages',
-)
+SECRET_KEY = '-@(pikm=rm@0exbaf@6_ktw%zjt=d7k(zxe^@(h3)85wn_^!w8'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -135,7 +124,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    PROJECT_PATH.child('templates'),
+    PROJECT_DIR.child('templates'),
 )
 
 INSTALLED_APPS = (
@@ -150,8 +139,6 @@ INSTALLED_APPS = (
 
     'gunicorn',
     'south',
-    'storages',
-    'crispy_forms',
 
     'legalis.core',
     'legalis.flatpages',
@@ -187,37 +174,6 @@ LOGGING = {
     }
 }
 
-# contrib.auth
-LOGIN_REDIRECT_URL = '/'
-
-if DEBUG is False:
-    DEFAULT_FILE_STORAGE = 'legalis.s3utils.MediaRootS3BotoStorage'
-    STATICFILES_STORAGE = 'legalis.s3utils.StaticRootS3BotoStorage'
-
-    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
-    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
-    AWS_STORAGE_BUCKET_NAME = os.environ.get('BUCKET_NAME', '')
-    AWS_QUERYSTRING_AUTH = False
-    AWS_HEADERS = { 'Expires': 'Thu, 15 Apr 2010 20:00:00 GMT', 'Cache-Control': 'max-age=86400', }
-
-    MEDIA_URL = 'https://%s.s3.amazonaws.com/static/' % AWS_STORAGE_BUCKET_NAME
-    STATIC_URL = 'https://%s.s3.amazonaws.com/static/' % AWS_STORAGE_BUCKET_NAME
-
-# South
-SOUTH_TESTS_MIGRATE = False
-
-# Django Crispy Forms
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
-
-# Tests
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-NOSE_ARGS = [
-    '--match=^(must|ensure|should|test|it_should)',
-    '--where=%s' % PROJECT_PATH,
-    '--id-file=%s' % PROJECT_PATH.child('.noseids'),
-    '--all-modules',
-    '--with-id',
-    '--verbosity=2',
-    '--nologcapture',
-    '--rednose',
-]
+if DEBUG is True:
+    # South
+    SKIP_SOUTH_TESTS = True

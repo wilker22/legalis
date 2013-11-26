@@ -152,10 +152,6 @@ INSTALLED_APPS = (
     'south',
     'storages',
     'crispy_forms',
-
-    'legalis.core',
-    'legalis.flatpages',
-    'legalis.skill',
 )
 
 # A sample logging configuration. The only tangible logging

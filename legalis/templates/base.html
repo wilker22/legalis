@@ -1,0 +1,39 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block meta %}
+            <meta name="description" content="">
+            <meta name="author" content="">
+        {% endblock meta %}
+        <link rel="shortcut icon" href="{% static 'img/favicon.png' %}">
+
+        {% block title %}
+            <title>Starter Template for Bootstrap</title>
+        {% endblock title %}
+
+        {% block styles %}
+            <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+            <link href="{% static 'css/style.css' %}" rel="stylesheet">
+        {% endblock styles %}
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="../../assets/js/html5shiv.js"></script>
+          <script src="../../assets/js/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+        {% include "header.html" %}
+
+        {% block main %}{% endblock main %}
+
+    {% block scripts %}
+        <script src="http://codeorigin.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    {% endblock scripts %}
+  </body>
+</html>
